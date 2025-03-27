@@ -7,39 +7,232 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/MvcMovie.styles.css" asp-append-version="true" />
+    <!-- Add Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <!-- Add Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #4361ee;
+            --secondary-color: #3a0ca3;
+            --accent-color: #4cc9f0;
+            --dark-color: #14213d;
+            --light-color: #f8f9fa;
+            --success-color: #2ecc71;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f5f7fa;
+            color: #333;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .navbar {
+            background-color: var(--dark-color) !important;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .navbar-brand {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 1.8rem;
+            color: white !important;
+        }
+
+            .navbar-brand span {
+                color: var(--accent-color);
+            }
+
+        .nav-link {
+            font-weight: 500;
+            color: rgba(255,255,255,0.8) !important;
+            margin: 0 8px;
+            transition: all 0.3s ease;
+        }
+
+            .nav-link:hover {
+                color: white !important;
+                transform: translateY(-2px);
+            }
+
+        .container {
+            max-width: 1200px;
+        }
+
+        main {
+            flex: 1;
+            padding-top: 2rem;
+        }
+
+        footer {
+            background-color: var(--dark-color);
+            color: white !important;
+            padding: 1rem 0 !important;
+        }
+
+            footer a {
+                color: var(--accent-color) !important;
+                text-decoration: none;
+                transition: all 0.3s ease;
+                font-size: 0.9rem;
+            }
+
+                footer a:hover {
+                    color: white !important;
+                    text-decoration: underline;
+                }
+
+        /* Movie card styles */
+        .movie-card {
+            border: none;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            background: white;
+            margin-bottom: 1.5rem;
+        }
+
+            .movie-card:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+            }
+
+            .movie-card img {
+                height: 300px;
+                object-fit: cover;
+            }
+
+            .movie-card .card-body {
+                padding: 1.25rem;
+            }
+
+            .movie-card .card-title {
+                font-weight: 600;
+                margin-bottom: 0.5rem;
+                color: var(--dark-color);
+            }
+
+            .movie-card .card-text {
+                color: #666;
+                margin-bottom: 1rem;
+                font-size: 0.9rem;
+            }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+            padding: 0.5rem 1.25rem;
+            font-weight: 500;
+            border-radius: 50px;
+            font-size: 0.9rem;
+        }
+
+            .btn-primary:hover {
+                background-color: var(--secondary-color);
+                border-color: var(--secondary-color);
+                transform: translateY(-2px);
+            }
+
+        .hero-section {
+            background: linear-gradient(135deg, var(--dark-color) 0%, var(--secondary-color) 100%);
+            color: white;
+            padding: 3rem 0;
+            margin-bottom: 2rem;
+            border-radius: 10px;
+        }
+
+        .hero-title {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 2.5rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .hero-subtitle {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .movie-list-container {
+            min-height: calc(100vh - 400px);
+        }
+
+        @@media (max-width: 768px) {
+            .hero-title {
+                font-size: 1.8rem;
+            }
+
+            .navbar-brand {
+                font-size: 1.5rem;
+            }
+
+            .hero-section {
+                padding: 2rem 0;
+            }
+        }
+    </style>
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Movies" asp-action="Index">Movie App</a>                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+        <nav class="navbar navbar-expand-lg navbar-dark">
+            <div class="container">
+                <a class="navbar-brand" asp-area="" asp-controller="Movies" asp-action="Index"><i class="fas fa-film me-2"></i>Movie<span>Hub</span></a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                <div class="navbar-collapse collapse d-lg-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index"><i class="fas fa-home me-1"></i> Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                            <a class="nav-link" asp-area="" asp-controller="Movies" asp-action="Index"><i class="fas fa-film me-1"></i> Movies</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Privacy"><i class="fas fa-shield-alt me-1"></i> Privacy</a>
                         </li>
                     </ul>
+                    <form class="d-flex">
+                        <input class="form-control me-2" type="search" placeholder="Search movies..." aria-label="Search">
+                        <button class="btn btn-outline-light" type="submit"><i class="fas fa-search"></i></button>
+                    </form>
                 </div>
             </div>
         </nav>
     </header>
+
     <div class="container">
         <main role="main" class="pb-3">
-            @RenderBody()
+            <!-- Hero Section without search box -->
+            <div class="hero-section text-center">
+                <div class="container">
+                    <h1 class="hero-title">ANM Movie Collection</h1>
+                    <p class="hero-subtitle">Browse and manage saved movies</p>
+                </div>
+            </div>
+
+            <!-- Movie List Container -->
+            <div class="movie-list-container">
+                @RenderBody()
+            </div>
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2025 - MvcMovie - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+    <footer class="border-top footer">
+        <div class="container text-center">
+            <p class="mb-1">&copy; 2025 MovieHub</p>
+            <p class="mb-0">
+                <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a> |
+                <a href="#">Contact</a>
+            </p>
         </div>
     </footer>
+
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
